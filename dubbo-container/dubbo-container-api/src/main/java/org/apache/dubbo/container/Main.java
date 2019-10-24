@@ -52,17 +52,20 @@ public class Main {
     private static final Condition STOP = LOCK.newCondition();
 
     public static void main(String[] args) {
+
         try {
             if (ArrayUtils.isEmpty(args)) {
                 String config = ConfigUtils.getProperty(CONTAINER_KEY, loader.getDefaultExtensionName());
                 args = COMMA_SPLIT_PATTERN.split(config);
             }
-
+            System.out.println(args[0]);
             final List<Container> containers = new ArrayList<Container>();
             for (int i = 0; i < args.length; i++) {
+                System.out.println("dfdfffff");
                 containers.add(loader.getExtension(args[i]));
             }
             logger.info("Use container type(" + Arrays.toString(args) + ") to run dubbo serivce.");
+
 
             if ("true".equals(System.getProperty(SHUTDOWN_HOOK_KEY))) {
                 Runtime.getRuntime().addShutdownHook(new Thread("dubbo-container-shutdown-hook") {
